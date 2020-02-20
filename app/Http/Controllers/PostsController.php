@@ -27,7 +27,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return 'Form for create new post';
+        return view('posts.create');
     }
 
     /**
@@ -39,7 +39,15 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => ['required', 'max:100', 'min:3'],
+            'detail' => ['required', 'max:500', 'min:3']
+        ]);
+        $post = new Post;
+        $post->title = $request->input('title');
+        $post->detail = $request->input('detail');
+        $post->save();
+        return redirect()->route('posts.show', ['post' => $post->id]);
     }
 
     /**
@@ -53,6 +61,7 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
         return view('posts.show', ['post' => $post]);
+
     }
 
     /**
@@ -64,11 +73,13 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        return 'Form for edit post number '.$id;
+        $post = Post::findOrFail($id);
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
      * Update the specified resource in storage.
+     * PUT /posts/id
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -76,7 +87,15 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => ['required', 'max:100', 'min:3'],
+            'detail' => ['required', 'max:500', 'min:3']
+        ]);
+        $post = Post::findOrFail($id);
+        $post->title = $request->input('title');
+        $post->detail = $request->input('detail');
+        $post->save();
+        return redirect()->route('posts.show', ['post' => $post->id]);
     }
 
     /**
@@ -88,6 +107,8 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return redirect()->route('posts.index');
     }
 }

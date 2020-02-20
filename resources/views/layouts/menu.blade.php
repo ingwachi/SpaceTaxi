@@ -1,5 +1,4 @@
 <ul>
-    <li><a href="{{ url('/hello') }}">Hello</a></li>
-    <li><a href="{{ url('/hello/Wachirawit') }}">Hello Wachirawit</a></li>
-    <li><a href="{{ url('/hello/Google') }}">Hello Google</a></li>
+    <li><a href="{{ route('posts.index') }}">All Posts</a></li>
+    <li><a href="{{ route('posts.create') }}">Create New Post</a></li>
 </ul>
