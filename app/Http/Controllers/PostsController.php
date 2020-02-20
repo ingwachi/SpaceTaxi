@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -14,7 +15,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return 'List of all posts';
+        $posts = \App\Post::all();
+        return view('posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -49,7 +51,8 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        return 'Show content of post number '. $id;
+        $post = Post::find($id);
+        return view('posts.show', ['post' => $post]);
     }
 
     /**
