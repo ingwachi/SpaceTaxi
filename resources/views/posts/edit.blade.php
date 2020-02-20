@@ -23,6 +23,6 @@
             @enderror
         </div>
 
-        <button type="submit">Update Post</button>
+        <button type="submit" class="btn btn-primary" style="margin-top: 3%; margin-left: 50%">Update Post</button>
     </form>
 @endsection

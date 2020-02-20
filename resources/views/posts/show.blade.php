@@ -9,11 +9,17 @@
         {{ $post->detail }}
     </div>
     <hr>
-    <a class="btn btn-info" style="margin-bottom: 3%" href="{{ route('posts.edit', ['post' => $post->id]) }}">Edit This Post</a>
-    <form id="deleteForm" onsubmit="return confirm('Are you sure to delete this post?')"
-          action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="post">
-        @method('DELETE')
-        @csrf
-        <button class="btn btn-danger" type="submit">DELETE</button>
-    </form>
+    <div class="row">
+        <div class="col-2">
+            <a class="btn btn-info" style="margin-bottom: 3%" href="{{ route('posts.edit', ['post' => $post->id]) }}">Edit This Post</a>
+        </div>
+        <div class="col-2">
+            <form id="deleteForm" onsubmit="return confirm('Are you sure to delete this post?')"
+                  action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="post">
+                @method('DELETE')
+                @csrf
+                <button class="btn btn-danger" type="submit">Delete Post</button>
+            </form>
+        </div>
+    </div>
 @endsection
