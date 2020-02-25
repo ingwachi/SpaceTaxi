@@ -23,5 +23,7 @@ Route::get('posts/{post}/comments/{comment}', function ($postId, $commentId) {
     return 'Post : '.$postId.' Comment : '.$commentId;
 });
 
+Route::post('/posts/{post}/comment', 'PostsController@commentStore')->name('posts.comment.store');
+
 Route::resource('/posts', 'PostsController');
 

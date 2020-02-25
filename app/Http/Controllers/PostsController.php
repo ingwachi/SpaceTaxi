@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Comment;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -111,4 +112,14 @@ class PostsController extends Controller
         $post->delete();
         return redirect()->route('posts.index');
     }
+
+    public function commentStore(Request $request, $id) {
+        $post = Post::findOrFail($id);
+        $comment = new Comment;
+        $comment->post_id = $post->id;
+        $comment->detail = $request->input('detail');
+        $comment->save();
+        return redirect()->route('posts.show', ['post' => $post->id]);
+    }
+
 }

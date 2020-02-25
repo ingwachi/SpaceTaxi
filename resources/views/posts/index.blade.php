@@ -10,10 +10,10 @@
                     {{ $post->title }}
                 </a>
                 [{{ $post->created_at->diffForHumans() }}]
+                <div>
+                    {{ $post->comments->count() }} comment(s)
+                </div>
             </div>
-            <p>
-                {{ $post->detail }}
-            </p>
         </div>
         <hr>
     @endforeach
