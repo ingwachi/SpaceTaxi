@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('root');
 
-Route::get('/hello/{message?}', 'HelloController@greeting')->name('hello-world');
+Route::get('/hello/{message?}', 'HelloController@greeting')->name('hello-world')->middleware('auth');
 
 Route::get('/user/{id}', 'UserController')->where(['id' => '[0-9]*'])->name('user');
 
@@ -27,3 +27,7 @@ Route::post('/posts/{post}/comment', 'PostsController@commentStore')->name('post
 
 Route::resource('/posts', 'PostsController');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

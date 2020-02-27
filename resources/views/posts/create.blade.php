@@ -32,7 +32,7 @@
             @enderror
         </div>
 
-        <button type="submit">Create New Post</button>
+        <button class="btn btn-primary" style="margin-top: 3%" type="submit">Create New Post</button>
     </form>
 
 @endsection
