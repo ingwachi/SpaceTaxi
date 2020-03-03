@@ -12,9 +12,11 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ route('posts.index') }}">All Posts </a></li>
-                    @if(Auth::check())
+{{--                    @if(Auth::check() and Gate::allows('create-post', \App\Post::class))--}}
+                    @can('create', \App\Post::class)
                         <li class="nav-item"><a class="nav-link" href="{{ route('posts.create') }}"> Create New Post</a></li>
-                    @endif
+{{--                    @endif--}}
+                    @endcan
                 </ul>
 
                 <!-- Right Side Of Navbar -->

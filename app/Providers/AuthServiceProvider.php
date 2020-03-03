@@ -14,6 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
+        \App\Post::class => \App\Policies\PostPolicy::class
     ];
 
     /**
@@ -25,6 +26,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('create-post', function ($user, $post) {
+            return $user->role === 'ADMIN' or $user->role === 'WRITER' or $user->role === 'EDITOR';
+        });
+
+        Gate::define('update-post', function ($user, $post) {
+           return $user->role === 'ADMIN' or $user->role === 'EDITOR' or $user->id === $post->user->id;
+        });
     }
 }

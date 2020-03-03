@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PostsController extends Controller
 {
@@ -33,6 +34,12 @@ class PostsController extends Controller
      */
     public function create()
     {
+//        if (Gate::allows('create-post', Post::class)){
+//            return view('posts.create');
+//        } else {
+//            return redirect()->route('post.index');
+//        }
+        $this->authorize('create', Post::class);
         return view('posts.create');
     }
 
@@ -45,6 +52,11 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+//        if (Gate::denies('create-post', Post::class)) {
+//            return redirect()->route('posts.index');
+//        }
+        $this->authorize('create', Post::class);
+
         $validatedData = $request->validate([
             'title' => ['required', 'max:100', 'min:3'],
             'detail' => ['required', 'max:500', 'min:3']
@@ -80,6 +92,7 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
+        $this->authorize('update', $post);
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -93,11 +106,12 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $post = Post::findOrFail($id);
+        $this->authorize('update', $post);
         $validatedData = $request->validate([
             'title' => ['required', 'max:100', 'min:3'],
             'detail' => ['required', 'max:500', 'min:3']
         ]);
-        $post = Post::findOrFail($id);
         $post->title = $request->input('title');
         $post->detail = $request->input('detail');
         $post->save();
